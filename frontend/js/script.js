@@ -13,22 +13,24 @@ if (formulario) {
 
         const nombre = document.getElementById("nombre").value;
         const correo = document.getElementById("correo").value;
+        const telefono = document.getElementById("telefono").value;
         const mensaje = document.getElementById("mensaje").value;
 
         console.log("Nombre:", nombre);
         console.log("Correo:", correo);
+        console.log("Teléfono:", telefono);
         console.log("Mensaje:", mensaje);
 
         const respuesta = document.getElementById("respuesta");
 
         // Validación
-        if (nombre === "" || correo === "" || mensaje === "") {
+        if (nombre === "" || correo === "" || telefono === "" || mensaje === "") {
             respuesta.textContent = "Todos los campos son obligatorios.";
             return;
         }
 
         // ENVIAR AL BACKEND
-        fetch("http://localhost:3000/guardar", {
+        fetch("http://127.0.0.1:3000/guardar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -36,6 +38,7 @@ if (formulario) {
             body: JSON.stringify({
                 nombre: nombre,
                 correo: correo,
+                telefono: telefono,
                 mensaje: mensaje
             })
         })

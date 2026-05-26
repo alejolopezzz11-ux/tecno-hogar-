@@ -1,45 +1,231 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Ayuda</title>
-    <link rel="stylesheet" href="css/estilos.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Centro de ayuda de Tecno Hogar con informacion sobre compras, envios y atencion al cliente."
+    />
+    <title>Centro de ayuda | Tecno Hogar</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
 
-<body>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">Tecno Hogar</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#menuPrincipal"
+          aria-controls="menuPrincipal"
+          aria-expanded="false"
+          aria-label="Mostrar menu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-<div class="agrupar">
-
-    <header class="cabecera">
-        <h1>Ayuda</h1>
-    </header>
-
-    <!-- MENÚ -->
-    <nav class="menu">
-        <ul>
-            <li><a href="index.html">Principal</a></li>
-            <li><a href="ayuda.html">Ayuda</a></li>
-            <li><a href="contacto.html">Contacto</a></li>
-        </ul>
+        <div class="collapse navbar-collapse" id="menuPrincipal">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="ayuda.html">
+                Ayuda
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contacto.html">Contacto</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </nav>
 
-    <section class="seccion">
-        <article>
-            <h2>Centro de ayuda</h2>
-            <p>Aquí el usuario encuentra información de uso del sitio.</p>
-        </article>
-    </section>
+    <main>
+      <section class="bg-light py-5">
+        <div class="container">
+          <h1 class="display-5 fw-bold">Centro de ayuda</h1>
+          <p class="lead mb-0">
+            En esta pagina encuentras informacion basica sobre compras, envios,
+            pagos y medios de atencion de Tecno Hogar.
+          </p>
+        </div>
+      </section>
 
-    <aside class="columna">
-        <blockquote>Soporte técnico</blockquote>
-        <blockquote>Preguntas frecuentes</blockquote>
-    </aside>
+      <section class="py-5">
+        <div class="container">
+          <div class="row g-4">
+            <div class="col-lg-8">
+              <h2 class="h3 mb-3">Preguntas frecuentes</h2>
 
-    <footer class="pie">
-        Página de ayuda
+              <div class="accordion" id="preguntasFrecuentes">
+                <div class="accordion-item">
+                  <h3 class="accordion-header" id="preguntaCompras">
+                    <button
+                      class="accordion-button"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#respuestaCompras"
+                      aria-expanded="true"
+                      aria-controls="respuestaCompras"
+                    >
+                      Como comprar en la tienda?
+                    </button>
+                  </h3>
+                  <div
+                    id="respuestaCompras"
+                    class="accordion-collapse collapse show"
+                    aria-labelledby="preguntaCompras"
+                    data-bs-parent="#preguntasFrecuentes"
+                  >
+                    <div class="accordion-body">
+                      El usuario puede revisar la informacion de los productos,
+                      elegir lo que necesita y comunicarse con la tienda para
+                      recibir orientacion antes de finalizar la compra.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h3 class="accordion-header" id="preguntaPagos">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#respuestaPagos"
+                      aria-expanded="false"
+                      aria-controls="respuestaPagos"
+                    >
+                      Que metodos de pago se aceptan?
+                    </button>
+                  </h3>
+                  <div
+                    id="respuestaPagos"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="preguntaPagos"
+                    data-bs-parent="#preguntasFrecuentes"
+                  >
+                    <div class="accordion-body">
+                      La tienda puede aceptar pagos por transferencia, tarjeta o
+                      pago contra entrega, segun la disponibilidad del servicio.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h3 class="accordion-header" id="preguntaEnvios">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#respuestaEnvios"
+                      aria-expanded="false"
+                      aria-controls="respuestaEnvios"
+                    >
+                      Cuanto tarda el envio?
+                    </button>
+                  </h3>
+                  <div
+                    id="respuestaEnvios"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="preguntaEnvios"
+                    data-bs-parent="#preguntasFrecuentes"
+                  >
+                    <div class="accordion-body">
+                      Los envios pueden tardar entre 2 y 5 dias habiles,
+                      dependiendo de la ciudad y la disponibilidad del producto.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h3 class="accordion-header" id="preguntaSoporte">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#respuestaSoporte"
+                      aria-expanded="false"
+                      aria-controls="respuestaSoporte"
+                    >
+                      Como contactar soporte?
+                    </button>
+                  </h3>
+                  <div
+                    id="respuestaSoporte"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="preguntaSoporte"
+                    data-bs-parent="#preguntasFrecuentes"
+                  >
+                    <div class="accordion-body">
+                      El usuario puede escribir desde la pagina de contacto o
+                      usar los medios de atencion disponibles para resolver sus
+                      dudas.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h2 class="h5 card-title">Informacion sobre compras</h2>
+                  <p class="card-text">
+                    Revisa los datos del producto antes de pedir asesoria o
+                    solicitar una compra.
+                  </p>
+                </div>
+              </div>
+
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h2 class="h5 card-title">Informacion sobre envios</h2>
+                  <p class="card-text">
+                    Confirma la ciudad, direccion y tiempo estimado de entrega.
+                  </p>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-body">
+                  <h2 class="h5 card-title">Medios de atencion</h2>
+                  <p class="card-text">
+                    Puedes solicitar ayuda por correo, telefono o desde la
+                    pagina de contacto.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-light py-4">
+        <div class="container">
+          <h2 class="h3">Recomendaciones para el usuario</h2>
+          <ul class="mb-0">
+            <li>Lee con atencion la descripcion de cada producto.</li>
+            <li>Verifica tus datos antes de solicitar informacion.</li>
+            <li>Conserva los datos de contacto de la tienda.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3">
+      <div class="container">
+        <p class="mb-0">Tecno Hogar - Centro de ayuda 2026</p>
+      </div>
     </footer>
 
-</div>
-
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

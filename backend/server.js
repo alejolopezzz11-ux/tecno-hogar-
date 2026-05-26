@@ -12,7 +12,7 @@ app.use(express.json());
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "root",
+    password: "ultra-NAPO1987",
     database: "contactos_db"
 });
 
@@ -33,18 +33,18 @@ app.get("/", (req, res) => {
 
 // ✅ RUTA PARA GUARDAR DATOS
 app.post("/guardar", (req, res) => {
-
-    const { nombre, correo, mensaje } = req.body;
+console.log("Ruta /guardar alcanzada");
+    const { nombre, correo, telefono, mensaje } = req.body;
 
     console.log("Datos recibidos:", req.body);
 
-    if (!nombre || !correo || !mensaje) {
+    if (!nombre || !correo || !telefono || !mensaje) {
         return res.status(400).send("Datos incompletos");
     }
 
-    const sql = "INSERT INTO contactos (nombre, correo, mensaje) VALUES (?, ?, ?)";
+    const sql = "INSERT INTO contactos (nombre, correo, telefono, mensaje) VALUES (?, ?, ?, ?)";
 
-    db.query(sql, [nombre, correo, mensaje], (err, result) => {
+    db.query(sql, [nombre, correo, telefono, mensaje], (err, result) => {
         if (err) {
             console.error("Error SQL:", err);
             return res.status(500).send("Error en servidor");
@@ -57,6 +57,6 @@ app.post("/guardar", (req, res) => {
 
 
 // Iniciar servidor
-app.listen(3000, () => {
-    console.log("Servidor en http://localhost:3000");
+app.listen(3000,"0.0.0.0", () => {
+    console.log("Servidor en http://127.0.0.1:3000");
 });
