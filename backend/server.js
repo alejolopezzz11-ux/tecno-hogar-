@@ -55,6 +55,70 @@ console.log("Ruta /guardar alcanzada");
     });
 });
 
+// RUTAS CRUD PARA PRODUCTOS
+app.get("/productos", (req, res) => {
+    const sql = "SELECT * FROM productos";
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error("Error SQL al listar productos:", err);
+            return res.status(500).send("Error al obtener productos");
+        }
+        res.json(results);
+    });
+});
+
+app.post("/productos", (req, res) => {
+    const { nombre, descripcion, precio, categoria, stock, imagen } = req.body;
+
+    if (!nombre || !descripcion || precio == null || !categoria || stock == null || !imagen) {
+        return res.status(400).send("Faltan datos obligatorios para registrar el producto");
+    }
+
+    const sql = "INSERT INTO productos (nombre, descripcion, precio, categoria, stock, imagen) VALUES (?, ?, ?, ?, ?, ?)";
+    db.query(sql, [nombre, descripcion, precio, categoria, stock, imagen], (err, result) => {
+        if (err) {
+            console.error("Error SQL al registrar producto:", err);
+            return res.status(500).send("Error al guardar el producto");
+        }
+        res.status(201).json({ mensaje: "Producto registrado correctamente", id: result.insertId });
+    });
+});
+
+app.put("/productos/:id", (req, res) => {
+    const { id } = req.params;
+    const { nombre, descripcion, precio, categoria, stock, imagen } = req.body;
+
+    if (!nombre || !descripcion || precio == null || !categoria || stock == null || !imagen) {
+        return res.status(400).send("Faltan datos obligatorios para actualizar el producto");
+    }
+
+    const sql = "UPDATE productos SET nombre = ?, descripcion = ?, precio = ?, categoria = ?, stock = ?, imagen = ? WHERE id = ?";
+    db.query(sql, [nombre, descripcion, precio, categoria, stock, imagen, id], (err, result) => {
+        if (err) {
+            console.error("Error SQL al actualizar producto:", err);
+            return res.status(500).send("Error al actualizar el producto");
+        }
+        if (result.affectedRows === 0) {
+            return res.status(404).send("Producto no encontrado");
+        }
+        res.json({ mensaje: "Producto actualizado correctamente" });
+    });
+});
+
+app.delete("/productos/:id", (req, res) => {
+    const { id } = req.params;
+    const sql = "DELETE FROM productos WHERE id = ?";
+    db.query(sql, [id], (err, result) => {
+        if (err) {
+            console.error("Error SQL al eliminar producto:", err);
+            return res.status(500).send("Error al eliminar el producto");
+        }
+        if (result.affectedRows === 0) {
+            return res.status(404).send("Producto no encontrado");
+        }
+        res.json({ mensaje: "Producto eliminado correctamente" });
+    });
+});
 
 // Iniciar servidor
 app.listen(3000,"0.0.0.0", () => {
