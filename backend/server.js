@@ -55,6 +55,42 @@ console.log("Ruta /guardar alcanzada");
     });
 });
 
+// RUTA PARA LOGIN ADMINISTRATIVO
+app.post("/login", (req, res) => {
+    const { correo, password } = req.body;
+
+    if (!correo || !password) {
+        return res.status(400).json({
+            ok: false,
+            mensaje: "Correo y contrasena son obligatorios"
+        });
+    }
+
+    const sql = "SELECT * FROM usuarios WHERE correo = ? AND password = ? LIMIT 1";
+
+    db.query(sql, [correo, password], (err, results) => {
+        if (err) {
+            console.error("Error SQL en login:", err);
+            return res.status(500).json({
+                ok: false,
+                mensaje: "Error en servidor"
+            });
+        }
+
+        if (results.length > 0) {
+            return res.json({
+                ok: true,
+                mensaje: "Ingreso correcto"
+            });
+        }
+
+        res.json({
+            ok: false,
+            mensaje: "Credenciales incorrectas"
+        });
+    });
+});
+
 // RUTAS CRUD PARA PRODUCTOS
 app.get("/productos", (req, res) => {
     const sql = "SELECT * FROM productos";
