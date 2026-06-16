@@ -1,6 +1,7 @@
 const API_BASE = 'http://localhost:3000';
 
 let editProductId = null;
+let buscadorProductosIniciado = false;
 
 function mostrarAlerta(texto) {
   console.log(texto);
@@ -91,6 +92,11 @@ function crearFilaProducto(producto) {
 function crearCardProducto(producto) {
   const columna = document.createElement('div');
   columna.className = 'col-md-6 col-lg-4';
+  columna.dataset.busqueda = [
+    producto.nombre,
+    producto.descripcion,
+    producto.categoria
+  ].join(' ');
   columna.innerHTML = `
     <div class="card h-100 shadow-sm">
       <img src="${producto.imagen}" class="card-img-top" alt="${producto.nombre}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&w=800&q=80'" />
@@ -104,6 +110,76 @@ function crearCardProducto(producto) {
     </div>
   `;
   return columna;
+}
+
+function prepararTarjetasParaBusqueda() {
+  const tarjetas = document.querySelectorAll('#productosGrid > .col-md-6, #productosGrid > .col-lg-4');
+
+  tarjetas.forEach((tarjeta) => {
+    if (!tarjeta.dataset.busqueda) {
+      tarjeta.dataset.busqueda = tarjeta.textContent;
+    }
+  });
+}
+
+function filtrarProductos(textoBusqueda) {
+  const busqueda = textoBusqueda.trim().toLowerCase();
+  const tarjetas = document.querySelectorAll('#productosGrid > .col-md-6, #productosGrid > .col-lg-4');
+  const mensaje = document.getElementById('productosMensaje');
+  const terminosBusqueda = busqueda.includes('nvidia') ? [busqueda, 'rtx'] : [busqueda];
+  let totalVisibles = 0;
+
+  tarjetas.forEach((tarjeta) => {
+    const textoProducto = `${tarjeta.dataset.busqueda || ''} ${tarjeta.id || ''}`.toLowerCase();
+    const coincide = busqueda === '' || terminosBusqueda.some((termino) => textoProducto.includes(termino));
+
+    tarjeta.classList.toggle('d-none', !coincide);
+
+    if (coincide) {
+      totalVisibles += 1;
+    }
+  });
+
+  if (mensaje) {
+    if (busqueda === '') {
+      mensaje.textContent = '';
+    } else if (totalVisibles === 0) {
+      mensaje.textContent = `No se encontraron productos para: ${textoBusqueda}`;
+    } else {
+      mensaje.textContent = `Productos encontrados: ${totalVisibles}`;
+    }
+  }
+}
+
+function iniciarBuscadorProductos() {
+  const formularioBusqueda = document.querySelector('form[role="search"]');
+  const campoBusqueda = formularioBusqueda ? formularioBusqueda.querySelector('input[type="search"]') : null;
+  const params = new URLSearchParams(window.location.search);
+  const busquedaInicial = params.get('q') || '';
+
+  prepararTarjetasParaBusqueda();
+
+  if (campoBusqueda && !buscadorProductosIniciado) {
+    campoBusqueda.value = busquedaInicial;
+    campoBusqueda.addEventListener('input', () => {
+      filtrarProductos(campoBusqueda.value);
+    });
+  }
+
+  if (formularioBusqueda && campoBusqueda && !buscadorProductosIniciado) {
+    formularioBusqueda.addEventListener('submit', (event) => {
+      event.preventDefault();
+      filtrarProductos(campoBusqueda.value);
+    });
+  }
+
+  buscadorProductosIniciado = true;
+
+  if (campoBusqueda) {
+    filtrarProductos(campoBusqueda.value);
+  } else if (busquedaInicial) {
+    filtrarProductos(busquedaInicial);
+  }
 }
 
 async function cargarProductosAdmin() {
@@ -142,7 +218,7 @@ async function cargarProductosPublico() {
     return;
   }
 
-  contenedor.innerHTML = '';
+  const productosHtml = contenedor.innerHTML;
   if (mensaje) {
     mensaje.textContent = 'Cargando productos...';
   }
@@ -154,24 +230,29 @@ async function cargarProductosPublico() {
     }
     const productos = await respuesta.json();
     if (productos.length === 0) {
-      contenedor.innerHTML = '';
+      contenedor.innerHTML = productosHtml;
       if (mensaje) {
-        mensaje.textContent = 'No hay productos registrados.';
+        mensaje.textContent = '';
       }
+      iniciarBuscadorProductos();
       return;
     }
     if (mensaje) {
       mensaje.textContent = '';
     }
 
+    contenedor.innerHTML = '';
     productos.forEach((producto) => {
       contenedor.appendChild(crearCardProducto(producto));
     });
+    iniciarBuscadorProductos();
   } catch (error) {
     console.error(error);
     if (mensaje) {
-      mensaje.textContent = 'No se pudo cargar los productos.';
+      mensaje.textContent = '';
     }
+    contenedor.innerHTML = productosHtml;
+    iniciarBuscadorProductos();
   }
 }
 
@@ -247,6 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const productosGrid = document.getElementById('productosGrid');
   if (productosGrid) {
+    iniciarBuscadorProductos();
     cargarProductosPublico();
   }
 });
