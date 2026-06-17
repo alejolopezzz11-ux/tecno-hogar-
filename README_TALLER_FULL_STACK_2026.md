@@ -1,5 +1,9 @@
 # Taller Full Stack 2026
 
+# Integrantes 
+# Daniel Alejandro Lopez Muñoz
+# Maria Alejandra Garcia 
+
 ## Aplicacion web: Tecno Hogar
 
 Este proyecto corresponde a una tienda online basica llamada **Tecno Hogar**. La aplicacion integra un frontend construido con HTML, CSS, JavaScript y Bootstrap 5, un backend con Node.js y Express, y una base de datos MySQL.
@@ -286,6 +290,23 @@ SELECT * FROM contactos;
 ```sql
 SELECT * FROM productos;
 ```
+
+---
+
+## Pruebas realizadas
+
+Durante la revision del proyecto se realizaron pruebas basicas para verificar el funcionamiento general de la aplicacion:
+
+| Prueba | Resultado esperado | Estado |
+| --- | --- | --- |
+| Inicio del backend con Node.js | El servidor debe mostrar que esta activo en `http://127.0.0.1:3000` | Correcto |
+| Navegacion del frontend | Los enlaces permiten entrar a Inicio, Productos, Ayuda, Contacto y Login | Correcto |
+| Formulario de contacto | El formulario permite enviar nombre, correo, telefono y mensaje al backend | Correcto |
+| Login administrativo | El sistema valida las credenciales del administrador y redirige al panel | Correcto |
+| Catalogo de productos | Los productos se cargan desde la base de datos y se muestran en tarjetas | Correcto |
+| Panel de productos | Se pueden registrar, editar y eliminar productos desde el panel administrativo | Correcto |
+
+Estas pruebas confirman que el frontend, el backend y la base de datos se comunican correctamente en el flujo principal del proyecto.
 
 ---
 

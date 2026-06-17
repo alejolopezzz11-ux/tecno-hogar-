@@ -159,25 +159,13 @@ function iniciarBuscadorProductos() {
 
   prepararTarjetasParaBusqueda();
 
-  if (campoBusqueda && !buscadorProductosIniciado) {
+  if (campoBusqueda) {
     campoBusqueda.value = busquedaInicial;
-    campoBusqueda.addEventListener('input', () => {
-      filtrarProductos(campoBusqueda.value);
-    });
-  }
-
-  if (formularioBusqueda && campoBusqueda && !buscadorProductosIniciado) {
-    formularioBusqueda.addEventListener('submit', (event) => {
-      event.preventDefault();
-      filtrarProductos(campoBusqueda.value);
-    });
   }
 
   buscadorProductosIniciado = true;
 
-  if (campoBusqueda) {
-    filtrarProductos(campoBusqueda.value);
-  } else if (busquedaInicial) {
+  if (busquedaInicial) {
     filtrarProductos(busquedaInicial);
   }
 }
