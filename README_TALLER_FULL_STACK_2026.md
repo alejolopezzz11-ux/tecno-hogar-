@@ -3,6 +3,9 @@
 # Integrantes 
 # Daniel Alejandro Lopez Muñoz
 # Maria Alejandra Garcia 
+# Ficha 3336014 Programacion de software 
+
+# Link video del funcionamiento de la pagina https://canva.link/kan12imbtkzutu6 , link del repositorio git hub actualizado 
 
 ## Aplicacion web: Tecno Hogar
 
