@@ -5,7 +5,7 @@
 # Maria Alejandra Garcia 
 # Ficha 3336014 Programacion de software 
 
-# Link video del funcionamiento de la pagina https://canva.link/kan12imbtkzutu6 , link del repositorio git hub actualizado 
+# Link video del funcionamiento de la pagina https://canva.link/kan12imbtkzutu6 , link del repositorio git hub actualizado https://github.com/alejolopezzz11-ux/tecno-hogar-.git
 
 ## Aplicacion web: Tecno Hogar
 
